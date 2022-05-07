@@ -1,0 +1,136 @@
+Saturday,05-06-2022:
+===================
+Mysql database:
+==============
+ Introductions:
+MySQL is an open-source relational database management software that helps users store, 
+organize, and later retrieve data. 
+- MySQL stores data in tables made up of rows and columns. 
+- Users can define, manipulate, control, and query data using Structured Query Language(sql)
+RDBMS:
+RDBMS stands for Relational Database Management System.
+RDBMS is the basis for SQL, and for all modern database systems such as MS SQL Server, IBM DB2, Oracle, MySQL, and Microsoft Access.
+The data in RDBMS is stored in database objects called tables. 
+A table is a collection of related data entries and it consists of columns and rows.
+
+ steps to reset the root account password:
+    =======================================
+    1 mysql --version
+    2 sudo systemctl stop mysql.service
+    3 sudo systemctl status mysql.service
+    4 sudo systemctl set-environment MYSQLD_OPTS="--skip-networking --skip-grant-tables"
+    5 sudo systemctl start mysql.service
+    6 sudo systemctl status mysql.service
+    7 sudo mysql -u root
+    8 flush privileges;
+    9 USE mysql;
+    10 ALTER USER  'root'@'localhost' IDENTIFIED BY 'the-new-password';
+    11  quit or exit <enter>
+    12 sudo killall -u mysql
+    13  sudo systemctl restart mysql.service
+    14 sudo mysql -u root -p (to connect to your mysql database server by mysql binary method)
+
+MYSQL STATEMENTS AND THEIR SYNTAX:
+  Statements: They are use to issue mysql queries
+
+  The SQL SELECT Statement: The SELECT statement is used to select data from a database.
+    syntax:
+ SELECT column1, column2, ...
+FROM table_name;
+  
+  The SQL WHERE Clause: The WHERE clause is used to filter records.
+   syntax:
+    SELECT column1, column2, ...
+    FROM table_name
+    WHERE condition;
+
+  The SQL INSERT INTO Statement: The INSERT INTO statement is used to insert new records in a table.
+   syntax:
+    INSERT INTO table_name (column1, column2, column3, ...)
+    VALUES (value1, value2, value3, ...);
+  
+  The SQL UPDATE Statement: The UPDATE statement is used to modify the existing records in a table.
+   syntax:
+    UPDATE table_name
+    SET column1 = value1, column2 = value2, ...
+    WHERE condition;
+
+  The SQL DELETE Statement: The DELETE statement is used to delete existing records in a table.
+  syntax:
+    DELETE FROM table_name WHERE condition;
+
+  The SQL SELECT TOP Clause: The SELECT TOP clause is used to specify the number of records to return.
+    syntax:
+  SELECT column_name(s)
+  FROM table_name
+  WHERE condition
+  LIMIT number;
+
+MYSQL user management:
+     How to Create a New User:
+    =========================
+    step 1: CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
+    NB: Just by creating the new user they do not have permissions to access the Database
+    
+    step 2: GRANT ALL PRIVILEGES ON * . * TO 'newuser'@'localhost';
+    NB: First * means all databases and the second * means all tables
+     
+    step 3: FLUSH PRIVILEGES;
+    NB: you can also use ctrl + l to clear your mysql shell terminal
+        or system clear;
+
+  How to list all users in mysql database?
+  ans: switch the mysql database type
+       select the user table
+      select user from user ; to see all list of users 
+
+  How can you see who is running the query?
+  ans: select user();
+
+  How can you switch user in mysql?
+  ans: system mysql -u username -p  
+
+
+    How To Grant Different User Permissions:
+    ========================================
+ALL PRIVILEGES: as we saw previously, this would allow a MySQL user full access to \
+a designated database (or if no database is selected, global access across the system)
+CREATE: allows them to create new tables or databases
+DROP: allows them to them to delete tables or databases
+DELETE: allows them to delete rows from tables
+INSERT: allows them to insert rows into tables
+SELECT: allows them to use the SELECT command to read through databases
+UPDATE: allow them to update table rows
+GRANT OPTION: allows them to grant or remove other users’ privileges
+
+To provide a specific user with a permission, you can use this framework:
+  GRANT (type_of_permission) ON (database_name.table_name) TO 'username'@'localhost';
+
+  NB: each time you alter a permission, be sure to run the command (flush privileges;)
+If you need to revoke a permission, the structure is almost identical to granting it:
+
+  REVOKE (type_of_permission) ON (database_name.table_name) FROM 'username'@'localhost';
+You can review a user’s current permissions by running the following:
+
+  SHOW GRANTS FOR 'username'@'localhost';
+Just as you can delete databases with DROP, you can use DROP to delete a user altogether:
+
+  DROP USER 'username'@'localhost';
+To test out your new user, log out by typing:
+  quit;
+  and log back in with this command in terminal:
+    mysql -u [username] -p
+
+ DATA TYPE:
+      - CHAR(size) --> A FIXED length string (can contain letters, numbers, and special characters)
+      - VARCHAR(size) --> A VARIABLE length string  can vary from 0 to 65535 
+      - BINARY(size) -->  Equal to CHAR(), but stores binary byte strings. The size parameter specifies the column length in bytes. Default is 1
+      - TEXT(size)-> Holds a string with a maximum length of 65,535 bytes
+      - BOOL -> Zero is considered as false, nonzero values are considered as true
+      - INT(size) --> A medium integer. Signed range is from -2147483648 to 2147483647
+      - FLOAT(p)--> A floating point number. The total number of digits is specified in size
+      - DATE --> A date. Format YYYY-MM-DD
+      - DATETIME(fsp)->A date and time combination. Format YYYY-MM-DD hh:mm:ss.
+      - TIME(fsp)--> A time. Format hh:mm:ss.
+      - YEAR -->  A year in four-digit format. Values allowed in four-digit format 1901 to 2155, and 0000.
+                  MySQL 8.0 does not support year in two-digit format.
