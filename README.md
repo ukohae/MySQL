@@ -1,13 +1,23 @@
 # MySQL
+
+### Log in into MySQl
+```
 sudo su - ubuntu
-
+```
+```
 sudo mysql -u root -p
+```
 
+### Basic 
+```
 quit
-
+```
+```
 sudo systemctl status mysql.service
-
+```
+```
 select user(); # who is currently using mysql
+```
 
 ## Create Table
 
