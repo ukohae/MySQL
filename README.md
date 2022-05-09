@@ -8,7 +8,7 @@ sudo su - ubuntu
 sudo mysql -u root -p
 ```
 
-### Basic 
+### Basic Command
 ```
 quit
 ```
