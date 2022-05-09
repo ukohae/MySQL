@@ -12,7 +12,7 @@ module "ec2_instance" {
 
   ami           = "ami-03a0c45ebc70f98ea"
   instance_type = "t2.medium"
-  key_name      = "myAnsibleKey"
+  key_name      = "yourKeyName"
 
 }
 
