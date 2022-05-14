@@ -1,0 +1,117 @@
+Monday, 05-09-2022:
+===================
+How To Create and Manage Databases in MySQL and MariaDB on a Cloud Server:
+  steps:
+    To begin, sign into MySQL or MariaDB with the following command
+    mysql -u root -p (then enter the user password)
+
+We can now create a database by typing the following command:
+    CREATE DATABASE new_database; <enter>
+    To avoid errors in the event that the database name we've chosen already exists \ 
+    use the following command:
+    CREATE DATABASE IF NOT EXISTS new_database;
+How to View Databases in MySQL and MariaDB:
+  commands:
+    SHOW DATABASES;
+How to Change Databases in MySQL and MariaDB:
+To select a database to use for subsequent operations, use the following command:
+    USE new_database;
+We can see that the database has been selected by re-issuing the command we ran previously:
+    SELECT database();
+
+How to Delete a Database in MySQL and MariaDB:
+   command:
+    DROP DATABASE new_database;
+    DROP DATABASE IF EXISTS new_database; (to avoid errors)
+
+The MySQL CREATE TABLE Statement:
+  syntax:
+    CREATE TABLE table_name (
+    column1 datatype,
+    column2 datatype,
+    column3 datatype,
+   ....
+);
+example:
+CREATE TABLE Persons (
+    PersonID int,
+    LastName varchar(255),
+    FirstName varchar(255),
+    Address varchar(255),
+    City varchar(255)
+);
+
+DROP TABLE table_name; --> use to delete a table
+
+MySQL ALTER TABLE Statement:
+  syntax:
+    ALTER TABLE table_name
+ADD column_name datatype;
+
+example:
+  ALTER TABLE Persons
+ADD Email varchar(255);
+ 
+ ALTER TABLE table_name
+DROP COLUMN column_name;
+
+The SQL BETWEEN Operator:
+SELECT column_name(s)
+FROM table_name
+WHERE column_name BETWEEN value1 AND value2;
+
+MySQL PRIMARY KEY Constraint:
+  defination of primary key --> The PRIMARY KEY constraint uniquely identifies each record in a table.
+
+  syntax: 
+  CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    PRIMARY KEY (ID)
+);
+
+Constraint:
+  CREATE TABLE Persons (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    CONSTRAINT PK_Person PRIMARY KEY (ID,LastName)
+);
+ALTER TABLE Persons
+DROP PRIMARY KEY;
+TRUNCATE TABLE table_name;
+
+What is the difference between truncate and drop on tables?
+ans:
+
+
+Steps to Migrate MySQL Database Between 2 Servers:
+
+  step1: backup your database
+ $ sudo mysqldump -u root -p testdb  > dump.sql
+ $ sudo vi key # add your ssh key from your download folder in your laptop
+ $ sudo chmod 400 key
+ $ sudo chown -R ubuntu $(pwd)
+ $ ssh -i key -L 10006:127.0.0.1:3306 ubuntu@172.31.16.233 note--> replace the ip with yourprivate
+
+
+step2: open port 3306 on the remote server security group
+creat a directory called /var/data/mysql in the remote host database
+$ sudo mkdir -p /var/data/mysql
+$ sudo chown -R ubuntu /var/data/mysql
+
+step3: use scp command to move your backup-db to the remote host over ssh tunnel
+
+ $ scp -i key -p  3306 dump.sql ubuntu@172.31.16.233:/var/data/mysql #run from sourceserver
+step4: on your remote server run this
+
+$ sudo mysql -u root -p etech < /var/data/mysql/dump.sql
+$ sudo mysql -u root -p  #access your remote db to check the informations
+
+
+
+
+

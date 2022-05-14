@@ -1,0 +1,33 @@
+Tuesday,05-10-2022:
+===================
+Splunk installations:
+=====================
+splunk is a monitoring tool for applications performance tracking
+script to install splunk:
+
+  #!/bin/bash
+  #Author:Prof Elvis N.
+  echo "welcome to Etech Consulting"
+  sudo wget https://download.splunk.com/products/splunk/releases/7.1.1/linux/splunk-7.1.1-8f0ead9ec3db-linux-2.6-amd64.deb
+  sudo dpkg -i splunk-7.1.1-8f0ead9ec3db-linux-2.6-amd64.deb
+  sudo /opt/splunk/bin/splunk enable boot-start
+  sudo systemctl start splunk
+  sudo systemctl status splunk
+
+  NB: make sure your password is strong enough to start the applications
+     - use t2.medium at ebs=12GB
+  NB: ADD port 8000 on your security group
+
+Use any file transfer tool of your choice to move data into the splunk server to view cpu
+and memory usage.
+
+How can you improve the performance of application that is running out of free space?
+
+Ticketing systems overview:
+  jira -->
+
+  Apphero -->
+
+  PACT -->
+
+  Pagerduty --> 
